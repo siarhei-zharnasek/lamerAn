@@ -5,6 +5,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('./app/models/user');
 
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,9 +16,10 @@ router.get('/', (req, res) => res.json('Hello there'));
 router.route('/users')
   .post((req, res) => {
     var user = new User();
+    
     user.name = req.body.name;
     user.password = req.body.password;
-user.markModified('name');
+
     user.save(err => {
       if (err) {
         res.send(err);
