@@ -13,11 +13,19 @@ app.use(bodyParser.json());
 
 router.get('/', (req, res) => res.json('Hello there'));
 
-router.route('/users')
+router.route('/users/:username')
+  .get((req, res) => {
+    User.findOne({ username: req.params.username }, (err, users) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json(user);
+    });
+  })
   .post((req, res) => {
     var user = new User();
-    
-    user.name = req.body.name;
+
+    user.name = req.params.username;
     user.password = req.body.password;
 
     user.save(err => {
@@ -27,14 +35,8 @@ router.route('/users')
       res.json({ message: 'User created!' });
     });
   })
-  .get((req, res) => {
-    User.find((err, users) => {
-      if (err) {
-        res.send(err);
-      }
-      res.json(users);
-    });
-  })
+  .put((req, res) => User.findOneAndUpdate({ username: req.params.username }, { username: req.body.username })
+  .delete((req, res) => User.findOneAndRemove({ username: req.params.username });
 
 app.use('/', router);
 
