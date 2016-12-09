@@ -16,7 +16,7 @@ router.get('/', (req, res) => res.json('Hello there'));
 
 router.route('/users/:username')
   .get((req, res) => {
-    User.findOne({ username: req.params.username }, (err, users) => {
+    User.findOne({ username: req.params.username }, (err, user) => {
       if (err) {
         return res.send(err);
       }
@@ -26,7 +26,7 @@ router.route('/users/:username')
   .post((req, res) => {
     var user = new User();
 
-    Object.assign(article, req.body, { name: req.params.username });
+    Object.assign(user, req.body, { name: req.params.username });
 
     user.save(err => {
       if (err) {
@@ -40,7 +40,7 @@ router.route('/users/:username')
       if (err) {
         return res.send(err);
       }
-      res.json({ message: 'Article updated!' });
+      res.json({ message: 'User updated!' });
     });
   })
   .delete((req) => {
@@ -52,18 +52,27 @@ router.route('/users/:username')
     });
   });
 
-router.route('/articles').post((req, res) => {
-  var article = new Article();
+router.route('/articles')
+  .post((req, res) => {
+    var article = new Article();
 
-  Object.assign(article, req.body);
+    Object.assign(article, req.body);
 
-  article.save(err => {
-    if (err) {
-      return res.send(err);
-    }
-    res.json({ message: 'Article created!' });
+    article.save(err => {
+      if (err) {
+        return res.send(err);
+      }
+      res.json({ message: 'Article created!' });
+    });
+  })
+  .get((req, res) => {
+    Article.find({}, (err, articles) => {
+      if (err) {
+        return res.send(err);
+      }
+      res.json(articles);
+    });
   });
-});
 
 router.route('/articles/:id')
   .put((req, res) => {
@@ -80,6 +89,29 @@ router.route('/articles/:id')
         return res.send(err);
       }
       res.json({ message: 'Article deleted!' });
+    });
+  });
+
+router.route('/articles/random')
+  .get((req, res) => {
+    Article.find({}, (err, articles) => {
+      if (err) {
+        return res.send(err);
+      }
+      var length = articles.length,
+          randomNumber = (Math.random * length) + 1;
+      res.json(articles[randomNumber]);
+    });
+  });
+
+router.route('/articles/:startIndex/:count?sort')
+  .get((req, res) => {
+    console.log(req);
+    Article.find({}, (err, articles) => {
+      if (err) {
+        return res.send(err);
+      }
+      res.json(articles[randomNumber]);
     });
   });
 
