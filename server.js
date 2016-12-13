@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-router.get('/', (req, res) => res.json('Hello there'));
+router.get('/', (req, res) => res.sendFile('./public/views/index.html'));
 
 router.route('/users/:username')
   .get((req, res) => {
