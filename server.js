@@ -11,8 +11,10 @@ mongoose.connect('mongodb://localhost');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use('/app', express.static('app'));
+app.use('/node_modules', express.static('node_modules'));
 
-router.get('/', (req, res) => res.sendFile('./public/views/index.html'));
+router.get('/', (req, res) => res.sendFile(__dirname + '/app/index.html'));
 
 router.route('/users/:username')
   .get((req, res) => {
