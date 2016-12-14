@@ -3,8 +3,12 @@ angular.module('myApp', ['lamer'])
     // $urlRouterProvider.otherwise('/home');
     $stateProvider
       .state('home', {
-        url: '/home',
+        url: '/',
         templateUrl: 'app/views/home.html'
+      })
+      .state('submit', {
+        url: '/submit',
+        templateUrl: 'app/views/submit.html'
       });
 
     // $urlRouterProvider.when('', '/home');

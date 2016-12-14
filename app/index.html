@@ -5,8 +5,17 @@
     <title>Lamer news</title>
   </head>
   <body>
-    <h1>Hello visitor!</h1>
-    <a ui-sref="home">CLCK</a>
+    <header class="main-header">
+      <a href="#" class="logo"><img src="" alt=""></a>
+      <nav class="navigation">
+        <ul class="navigation-list">
+          <li><a href="#">Top</a></li>
+          <li><a href="#">Latest</a></li>
+          <li><a href="#">Random</a></li>
+          <li><a ui-sref="submit">Submit new</a></li>
+        </ul>
+      </nav>
+    </header>
     <div ui-view></div>
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
