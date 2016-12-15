@@ -1,6 +1,6 @@
-import 'angular';
-import 'angular-ui-router';
-import 'angular-cookies';
+// import 'angular';
+// import 'angular-ui-router';
+// import 'angular-cookies';
 
 angular.module('myApp', ['ui.router', 'ngCookies'])
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$qProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $qProvider) {
@@ -13,6 +13,10 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
       .state('submit', {
         url: '/submit',
         templateUrl: 'app/views/submit.html'
+      })
+      .state('article', {
+        url: '/article',
+        template: '<article></article>'
       });
 
     // $urlRouterProvider.when('', '/home');
