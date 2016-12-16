@@ -8,14 +8,14 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'app/views/home.html'
+        template: '<list-articles></list-articles>'
       })
       .state('submit', {
         url: '/submit',
         templateUrl: 'app/views/submit.html'
       })
       .state('article', {
-        url: '/article',
+        url: '/article/:id',
         template: '<article></article>'
       });
 
@@ -24,4 +24,13 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
       enabled: true,
       requireBase: false
     });
+  }])
+  .service('getArticles', ['$http', function($http) {
+    this.getData = () => {
+      if (!this.articles) {
+        return $http.get('articles').then(data => this.articles = data.data);
+      } else {
+        return this.articles;
+      }
+    }
   }]);

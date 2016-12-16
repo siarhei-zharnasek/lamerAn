@@ -21,18 +21,18 @@ module.exports = {
         query: {
           presets: ['es2015']
         }
-      },
-      {
-          test: /angular\.min\.js$/,
-          loader: 'exports?angular'
-      }
+      // },
+      // {
+      //     test: /angular\.min\.js$/,
+      //     loader: 'exports?angular'
+      // }
     ]
   },
-  resolve: {
-    alias: {
-        angular: "angular/angular.min.js"
-    }
-  },
+  // resolve: {
+  //   alias: {
+  //       angular: "angular/angular.min.js"
+  //   }
+  // },
   devServer: {  //settings for webpack dev server
     inline: true, //do that we no need to recollect bundle
     hot: true //and no need to update page
