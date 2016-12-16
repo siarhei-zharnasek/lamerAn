@@ -28,7 +28,7 @@ router.route('/users/:username')
   .post((req, res) => {
     var user = new User();
 
-    Object.assign(user, req.body, { name: req.params.username });
+    Object.assign(user, req.body);
 
     user.save(err => {
       if (err) {
@@ -54,6 +54,16 @@ router.route('/users/:username')
     });
   });
 
+router.route('/login')
+  .post((req, res) => {
+    User.findOne({ name: req.body.login, password: req.body.password }, (err, user) => {
+      if (err) {
+        return res.send(err);
+      }
+      res.json(user);
+    });
+  });
+
 router.route('/articles')
   .post((req, res) => {
     var article = new Article();
@@ -64,7 +74,6 @@ router.route('/articles')
       if (err) {
         return res.send(err);
       }
-      //res.redirect('/');
       res.json({ message: 'Article created!' });
     });
   })
