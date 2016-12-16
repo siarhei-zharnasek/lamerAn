@@ -58,12 +58,13 @@ router.route('/articles')
   .post((req, res) => {
     var article = new Article();
 
-    Object.assign(article, req.body);
+    Object.assign(article, req.body, { 'creation date': new Date() });
 
     article.save(err => {
       if (err) {
         return res.send(err);
       }
+      //res.redirect('/');
       res.json({ message: 'Article created!' });
     });
   })

@@ -1,6 +1,9 @@
 <div class="submit">
-  <form class="" action="index.html" method="post">
-    <input type="text"value="">
-    <textarea name="name" rows="8" cols="80"></textarea>
+  <form ng-controller="formController" ng-submit="submit()">
+    <p>Please, type here your question!</p>
+    <textarea name="title" rows="8" cols="80" ng-model="title"></textarea>
+    <p>Type in link</p>
+    <input type="text" placeholder="link" name="link" ng-model="link">
+    <input type="submit" value="SUBMIT">
   </form>
 </div>

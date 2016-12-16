@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/app/stylesheets/styles.css">
   </head>
   <body>
+    <base href='/'>
     <header class="main-header">
       <a href="#" class="logo"><img src="" alt=""></a>
       <nav class="navigation">
@@ -17,8 +18,10 @@
         </ul>
       </nav>
     </header>
-    <a ui-sref="article">clck</a>
-    <div ui-view></div>
+    <main>
+      <list-articles></list-articles>
+      <div ui-view class="ui-container"></div>
+    </main>
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="node_modules/angular-cookies/angular-cookies.js"></script>

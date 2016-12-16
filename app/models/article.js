@@ -6,7 +6,7 @@ var ArticleSchema = new Schema({
   title: String,
   link: String,
   rating: Number,
-  'creation date': Number,
+  'creation date': Date,
   comments: Array
 });
 

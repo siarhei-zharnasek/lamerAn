@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+li {
+  list-style: none;
+}
+
 .navigation-list li {
   text-decoration: none;
   display: inline-block;
@@ -11,4 +15,27 @@
   height: 30px;
   line-height: 30px;
   vertical-align: middle;
+}
+
+.main-list li:hover {
+  background: #eee;
+}
+
+main {
+  white-space: nowrap;
+}
+
+.ui-container,
+list-articles {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  white-space: normal;
+}
+
+.ui-container,
+list-articles li {
+  padding: 10px 20px;
+  box-sizing: border-box;
+  margin: 5px;
 }

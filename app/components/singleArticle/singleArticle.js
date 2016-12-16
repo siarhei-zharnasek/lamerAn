@@ -4,11 +4,11 @@ angular.module('myApp')
     controller: ['$scope', '$stateParams', 'getArticles', function($scope, $stateParams, getArticles) {
       const ID = $stateParams.id;
       let articles;
-      if (!getArticles.articles) {
+      function setArticles() {
         getArticles.getData().then(() => articles = getArticles.articles);
-      } else {
-        articles = getArticles.articles;
+        $scope.article = articles.filter(article => article._id === ID)[0];
       }
-      $scope.article = articles.filter(article => article._id === ID);
+      setArticles();
+      $scope.$on('dataUpdated', setArticles);
     }]
   });

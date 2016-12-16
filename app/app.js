@@ -4,11 +4,10 @@
 
 angular.module('myApp', ['ui.router', 'ngCookies'])
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$qProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $qProvider) {
-    // $urlRouterProvider.otherwise('/home');
+    //$urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
-        url: '/',
-        template: '<list-articles></list-articles>'
+        url: '/'
       })
       .state('submit', {
         url: '/submit',
@@ -19,18 +18,20 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
         template: '<article></article>'
       });
 
-    // $urlRouterProvider.when('', '/home');
+    // $urlRouterProvider.when('/home', '/');
     $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
+      enabled: true
     });
   }])
   .service('getArticles', ['$http', function($http) {
-    this.getData = () => {
-      if (!this.articles) {
-        return $http.get('articles').then(data => this.articles = data.data);
-      } else {
-        return this.articles;
-      }
+    this.getData = () => $http.get('articles').then(data => this.articles = data.data);
+  }])
+  .controller('formController', ['$scope', '$http', '$state', '$rootScope', function($scope, $http, $state, $rootScope) {
+    $scope.submit = function() {
+      $http.post('/articles', { title: $scope.title, link: $scope.link })
+            .then(() => {
+              $rootScope.$broadcast('dataUpdated');
+              $state.go('home', {}, { reload: true });
+            });
     }
   }]);
