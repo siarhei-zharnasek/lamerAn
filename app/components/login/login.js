@@ -1,11 +1,12 @@
 angular.module('myApp')
   .component('login', {
     templateUrl: 'app/components/login/login.tpl.html',
-    controller: ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+    controller: ['$scope', '$http', '$rootScope', 'getCurrentUser', function($scope, $http, $rootScope, getCurrentUser) {
       $scope.submit = () => {
         $http.post('/login', { username: $scope.login, password: $scope.password })
               .then(res => {
                 if (res.data) {
+                  getCurrentUser.setUser(res.data.username);
                   $rootScope.$broadcast('authenticated', { username: res.data.username });
                 }
               });

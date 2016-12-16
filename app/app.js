@@ -19,7 +19,7 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
       })
       .state('users', {
         url: '/users/:username',
-        template: '<article></article>'
+        template: '<user></user>'
       })
       .state('login', {
         url: '/login',
@@ -34,6 +34,10 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
   .service('getArticles', ['$http', function($http) {
     this.getData = () => $http.get('articles').then(data => this.articles = data.data);
   }])
+  .service('getCurrentUser', function() {
+    this.getUser = () => this.user;
+    this.setUser = user => this.user = user;
+  })
   .controller('formController', ['$scope', '$http', '$state', '$rootScope', function($scope, $http, $state, $rootScope) {
     $scope.submit = function() {
       $http.post('/articles', { title: $scope.title, link: $scope.link })

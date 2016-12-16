@@ -1,9 +1,9 @@
 <ul class="main-list">
   <li ng-repeat="article in articles">
-    <a ui-sref="article({id: article._id})">
+    <a ui-sref="article({ id: article._id })">
       <h3 class="news-title">{{article.title}}</h3>
       at <a ng-href="{{article.link}}" class="article-link">{{article.link}}</a>
-      <span class="article-author">posted by {{article.author}}</span>
+      <span class="article-author">posted by <a ui-sref="users({ username: article.author })">{{article.author}}</a></span>
       <span class="article-comments"><strong>{{article.comments.length}}</strong> comments</span>
     </a>
   </li>

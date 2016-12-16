@@ -5,7 +5,7 @@ angular.module('myApp')
       function setArticles() {
         getArticles.getData().then(() => $scope.articles = getArticles.articles);
       }
-      setArticles();;
+      setArticles();
       $scope.$on('dataUpdated', setArticles);
     }]
   });
