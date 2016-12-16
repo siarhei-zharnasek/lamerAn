@@ -17,6 +17,10 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
         url: '/article/:id',
         template: '<article></article>'
       })
+      .state('users', {
+        url: '/users/:username',
+        template: '<article></article>'
+      })
       .state('login', {
         url: '/login',
         template: '<login></login>'

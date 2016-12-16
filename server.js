@@ -56,7 +56,7 @@ router.route('/users/:username')
 
 router.route('/login')
   .post((req, res) => {
-    User.findOne({ name: req.body.login, password: req.body.password }, (err, user) => {
+    User.findOne(req.body, (err, user) => {
       if (err) {
         return res.send(err);
       }
