@@ -22,6 +22,7 @@ angular.module('myApp')
         $scope.$on('authenticated', (res, data) => {
           $elem.replaceWith(`<a ui-sref=users/${data.username} href="/users/${data.username}">${data.username}</a>`);
           $compile($elem)($scope);
+          $state.go('home');
         });
       }
     }
