@@ -104,6 +104,24 @@ router.route('/articles/:id')
     });
   });
 
+router.route('/articles/comment/:id')
+  .put((req, res) => {
+    Article.findOne({ _id: req.params.id }, (err, article) => {
+      if (err) {
+        return res.send(err);
+      }
+
+      article.comments.push(req.body);
+
+      article.save(err => {
+        if (err) {
+          return res.send(err);
+        }
+        res.end();
+      });
+    });
+  });
+
 router.route('/articles/random')
   .get((req, res) => {
     Article.find({}, (err, articles) => {

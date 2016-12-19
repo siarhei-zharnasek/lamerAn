@@ -39,3 +39,15 @@ list-articles li {
   box-sizing: border-box;
   margin: 5px;
 }
+
+.add-comment {
+  text-decoration: underline;
+}
+
+.add-comment:hover {
+  cursor: pointer;
+}
+
+.submit-btn {
+  display: block;
+}

@@ -13,7 +13,7 @@
         <ul class="navigation-list">
           <li><a href="#">Top</a></li>
           <li><a ui-sref="latest">Latest</a></li>
-          <li><a href="#">Random</a></li>
+          <li><a ui-sref="random" ui-sref-opts="{reload:true}">Random</a></li>
           <li><a ui-sref="submit">Submit new</a></li>
           <li><a ui-sref="login" login-check>Login</a></li>
         </ul>
@@ -31,6 +31,7 @@
     <script src="app/components/listArticles/listArticles.js"></script>
     <script src="app/components/login/login.js"></script>
     <script src="app/components/user/user.js"></script>
+    <script src="app/components/submit/submit.js"></script>
     <!-- <script src="/app/bundle.js"></script> -->
   </body>
 </html>
