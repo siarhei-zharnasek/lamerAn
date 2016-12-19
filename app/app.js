@@ -32,6 +32,10 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
       .state('login', {
         url: '/login',
         template: '<login></login>'
+      })
+      .state('register', {
+        url: '/register',
+        template: '<login></login>'
       });
 
     // $urlRouterProvider.when('/home', '/');
