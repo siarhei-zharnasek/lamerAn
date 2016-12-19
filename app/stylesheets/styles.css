@@ -7,22 +7,48 @@ li {
   list-style: none;
 }
 
-.navigation-list li {
+.navigation-list a {
   text-decoration: none;
   display: inline-block;
   text-align: center;
   width: 120px;
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
+  line-height: 40px;
   vertical-align: middle;
 }
 
-.main-list li:hover {
+.navigation-list li {
+  display: inline-block;
+}
+
+.navigation-list a {
+  color: black;
+  font-weight: 700;
+}
+
+.main-list li:hover,
+.navigation-list li:hover {
   background: #eee;
+}
+
+.main-list .title {
+  display: inline-block;
+}
+
+.title {
+  color: black;
+}
+
+.main-list h3 {
+  display: inline-block;
 }
 
 main {
   white-space: nowrap;
+}
+
+.main-list {
+  color: #a4a7a9;
 }
 
 .ui-container,
@@ -40,8 +66,55 @@ list-articles li {
   margin: 5px;
 }
 
-.add-comment {
-  text-decoration: underline;
+.article-link,
+.article-author,
+.article-author a {
+  text-decoration: none;
+  color: #a4a7a9;
+}
+
+.article-author span a {
+  color: #494f52;
+  font-weight: 550;
+}
+
+.article-comments {
+  color: #636a6d;
+}
+
+.comment {
+  margin: 10px 0;
+  padding-top: 10px;
+  border-top: 1px solid black;
+}
+
+.comment:last-child {
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+.comment div {
+  margin-bottom: 5px;
+}
+
+.add-comment,
+input[type="submit"] {
+  width: 100px;
+  height: 30px;
+  margin: 5px 0;
+  color: #627776;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid rgba(202, 185, 185, 0.47);;
+  border-radius: 20px;
+  background: rgba(243, 241, 247, 0.55);
+  transition: box-shadow 0.2s linear, background 0.2s linear;
+}
+
+.add-comment:hover,
+input[type="submit"]:hover {
+  background: rgb(238, 236, 243);
+  box-shadow: 1px 1px 2px rgb(14, 13, 13);
 }
 
 .add-comment:hover {
@@ -50,4 +123,23 @@ list-articles li {
 
 .submit-btn {
   display: block;
+}
+
+.comment-form {
+  margin: 20px 0 40px 0;
+}
+
+.comment-form p {
+  margin-bottom: 10px;
+  color: rgba(38, 41, 41, 0.88);
+  font-size: 18px;
+}
+
+.comment-form textarea {
+  border-radius: 15px;
+  padding: 5px;
+}
+
+.comment-form textarea:focus {
+  outline: none;
 }
