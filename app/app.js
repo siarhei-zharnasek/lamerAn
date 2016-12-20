@@ -46,7 +46,7 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
   .service('getArticles', ['$http', function($http) {
     this.getData = () => $http.get('articles').then(articles => this.articles = articles.data);
   }])
-  .service('getCurrentUser', function() {
+  .service('CurrentUser', function() {
     this.getUser = () => this.user;
     this.setUser = user => this.user = user;
   });

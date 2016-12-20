@@ -98,7 +98,8 @@ list-articles li {
 }
 
 .add-comment,
-input[type="submit"] {
+input[type="submit"],
+.logout {
   width: 100px;
   height: 30px;
   margin: 5px 0;
@@ -112,9 +113,11 @@ input[type="submit"] {
 }
 
 .add-comment:hover,
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+.logout:hover {
   background: rgb(238, 236, 243);
   box-shadow: 1px 1px 2px rgb(14, 13, 13);
+  cursor: pointer;
 }
 
 .add-comment:hover {

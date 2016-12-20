@@ -74,6 +74,11 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   res.json({ username: req.user.username });
 });
 
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.end();
+});
+
 router.route('/articles')
   .post((req, res) => {
     var article = new Article();
