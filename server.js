@@ -15,11 +15,11 @@ mongoose.connect('mongodb://localhost');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookieParser('secret'));
 app.use('/app', express.static('app'));
 app.use('/node_modules', express.static('node_modules'));
 
-app.use(session({ secret: 'secret' }));
+app.use(session({ secret: 'secret', resave: true, saveUninitialized: true, cookie: { maxAge : 3600000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -46,11 +46,19 @@ router.route('/users/:username')
     });
   })
   .put((req, res) => {
-    User.findOneAndUpdate({ username: req.params.username }, { username: req.body.username }, err => {
+    User.findOne({ username: req.params.username }, (err, user) => {
       if (err) {
         return res.send(err);
       }
-      res.json({ message: 'User updated!' });
+
+      user.comments.push(req.body);
+
+      user.save(err => {
+        if (err) {
+          return res.send(err);
+        }
+        res.end();
+      });
     });
   })
   .delete((req) => {
@@ -62,15 +70,8 @@ router.route('/users/:username')
     });
   });
 
-router.post('/login', /*passport.authenticate('local', { failureRedirect: '/login' }), */(req, res) => {
-  passport.authenticate('local', (err, user, info) => {
-    User.findOne(req.body, (err) => {
-      if (err) {
-        return res.send(err);
-      }
-      res.json(user);
-    });
-  })(req, res);
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  res.json({ username: req.user.username });
 });
 
 router.route('/articles')
@@ -113,15 +114,29 @@ router.route('/articles/:id')
     });
   });
 
-router.route('/articles/comment/:id')
+router.route('/articles/comment/:_id')
   .put((req, res) => {
-    Article.findOne({ _id: req.params.id }, (err, article) => {
+    const comment = req.body.comment;
+    const username = req.user.username;
+
+    User.findOne({ username }, (err, user) => {
       if (err) {
         return res.send(err);
       }
+      user.comments.push({ comment, article: req.params._id});
+      user.save(err => {
+        if (err) {
+          return res.send(err);
+        }
+        res.end();
+      });
+    });
 
-      article.comments.push(req.body);
-
+    Article.findOne(req.params, (err, article) => {
+      if (err) {
+        return res.send(err);
+      }
+      article.comments.push({ author: username, comment });
       article.save(err => {
         if (err) {
           return res.send(err);
