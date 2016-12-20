@@ -1,18 +1,30 @@
 var express = require('express');
-var app = express();
 var bodyParser = require('body-parser');
-var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('./app/models/user');
 var Article = require('./app/models/article');
+var passport = require('passport');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var LocalStrategy = require('passport-local').Strategy;
+var router = express.Router();
+var app = express();
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use('/app', express.static('app'));
 app.use('/node_modules', express.static('node_modules'));
+
+app.use(session({ secret: 'secret' }));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 router.get('/', (req, res) => res.sendFile(__dirname + '/app/index.html'));
 
@@ -26,15 +38,11 @@ router.route('/users/:username')
     });
   })
   .post((req, res) => {
-    var user = new User();
-
-    Object.assign(user, req.body);
-
-    user.save(err => {
+    User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
       if (err) {
-        return res.send(err);
+        res.send(err);
       }
-      res.json({ message: 'User created!' });
+      passport.authenticate('local')(req, res, () => res.redirect('/'));
     });
   })
   .put((req, res) => {
@@ -54,15 +62,16 @@ router.route('/users/:username')
     });
   });
 
-router.route('/login')
-  .post((req, res) => {
-    User.findOne(req.body, (err, user) => {
+router.post('/login', /*passport.authenticate('local', { failureRedirect: '/login' }), */(req, res) => {
+  passport.authenticate('local', (err, user, info) => {
+    User.findOne(req.body, (err) => {
       if (err) {
         return res.send(err);
       }
       res.json(user);
     });
-  });
+  })(req, res);
+});
 
 router.route('/articles')
   .post((req, res) => {

@@ -9,10 +9,12 @@ angular.module('myApp')
                   if (res.data) {
                     getCurrentUser.setUser(res.data.username);
                     $rootScope.$broadcast('authenticated', { username: res.data.username });
+                  } else {
+                    $state.go('login');
                   }
                 });
         } else {
-          $http.post(`/users/${login}`, { username: login, password: password })
+          $http.post(`/users/${login}`, { username: login, password })
                 .then(() => {
                   getCurrentUser.setUser(login);
                   $rootScope.$broadcast('authenticated', { username: login });
