@@ -1,7 +1,7 @@
 angular.module('myApp')
   .component('article', {
     templateUrl: 'app/components/singleArticle/singleArticle.tpl.html',
-    controller: ['$scope', '$stateParams', 'getArticles', '$state', '$http', '$rootScope', function($scope, $stateParams, getArticles, $state, $http, $rootScope) {
+    controller: ['$scope', '$stateParams', 'getArticles', '$state', '$http', '$rootScope', 'CurrentUser', function($scope, $stateParams, getArticles, $state, $http, $rootScope, CurrentUser) {
       let state = $state.current.name
       if (state === 'latest') {
         getArticles.getData().then(() => {
@@ -12,6 +12,8 @@ angular.module('myApp')
           let articles = getArticles.articles;
           let randomNumber = Math.floor(Math.random() * articles.length);
           $scope.article = articles[randomNumber];
+          $state.go('article', { id: $scope.article._id });
+          console.log($scope.article);
         });
       } else {
         const ID = $stateParams.id;
@@ -29,6 +31,9 @@ angular.module('myApp')
       }
 
       $scope.submitComment = function(comment) {
+        if (!CurrentUser.getUser()) {
+          return $state.go('login');
+        }
         $http.put(`/articles/comment/${$stateParams.id}`, { comment }).then(() => {
           $rootScope.$broadcast('dataUpdated');
           $state.go('article', {}, { reload: true })
