@@ -61,12 +61,12 @@ router.route('/users/:username')
       });
     });
   })
-  .delete((req) => {
+  .delete((req, res) => {
     User.findOneAndRemove({ username: req.params.username }, err => {
       if (err) {
         return res.send(err);
       }
-      res.json({ message: 'Article updated!' });
+      res.json({ message: 'User deleted!' });
     });
   });
 
@@ -128,7 +128,7 @@ router.route('/articles/comment/:_id')
       if (err) {
         return res.send(err);
       }
-      user.comments.push({ comment, article: req.params._id});
+      user.comments.push({ comment, article: req.params._id, date: new Date() });
       user.save(err => {
         if (err) {
           return res.send(err);
@@ -141,7 +141,7 @@ router.route('/articles/comment/:_id')
       if (err) {
         return res.send(err);
       }
-      article.comments.push({ author: username, comment });
+      article.comments.push({ author: username, comment, date: new Date() });
       article.save(err => {
         if (err) {
           return res.send(err);

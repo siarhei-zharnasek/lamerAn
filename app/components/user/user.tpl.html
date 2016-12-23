@@ -1,4 +1,21 @@
 <h3>User panel</h3>
 <h4>Username: {{user.username}}</h4>
-<p>Password: {{user.password}}</p>
-<p class="logout" ng-if="!user.password" ng-click="logout()">Logout</p>
+<p class="custom-btn" ng-if="!user.password" ng-click="logout()">Logout</p>
+<p class="custom-btn" ng-if="!user.password" ng-click="deleteUser()">Delete account</p>
+<h2>Your comments</h3>
+<div class="comments-container">
+  <div class="comment" ng-repeat="comment in user.comments">
+    <div>
+      <span>Article: </span>
+      <span>{{comment.article}}</span>
+    </div>
+    <div>
+      <span>Comment: </span>
+      <span>{{comment.comment}}</span>
+    </div>
+    <div>
+      <span>Date: </span>
+      <span>{{comment.date | date: 'medium'}}</span>
+    </div>
+  </div>
+</div>

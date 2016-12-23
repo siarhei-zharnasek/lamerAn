@@ -15,5 +15,12 @@ angular.module('myApp')
           $rootScope.$broadcast('authenticated');
         });
       }
+
+      $scope.deleteUser = function() {
+        $http.delete(`/users/${$stateParams.username}`).then(() => {
+          $scope.logout();
+          $state.go('home', {}, { reload: true });
+        });
+      }
     }]
   });

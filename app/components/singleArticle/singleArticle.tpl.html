@@ -2,7 +2,8 @@
 at <a ng-href="{{article.link}}" class="article-link">{{article.link}}</a>
 <span class="article-author">posted by {{article.author}}</span>
 <span class="article-comments"><strong>{{article.comments.length}}</strong> comments</span>
-<p class="add-comment" ng-click="toggleCommentForm()">Add comment</p>
+<p class="custom-btn" ng-click="toggleCommentForm()">Add comment</p>
+<p class="custom-btn delete-btn" ng-click="deleteArticle()">Delete article</p>
 <div class="comment-form" ng-show="isShowCommentForm">
   <form ng-submit="submitComment(comment)">
     <p>Please, type here your comment!</p>

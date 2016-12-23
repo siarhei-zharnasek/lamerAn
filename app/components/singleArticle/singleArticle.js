@@ -2,7 +2,8 @@ angular.module('myApp')
   .component('article', {
     templateUrl: 'app/components/singleArticle/singleArticle.tpl.html',
     controller: ['$scope', '$stateParams', 'getArticles', '$state', '$http', '$rootScope', 'CurrentUser', function($scope, $stateParams, getArticles, $state, $http, $rootScope, CurrentUser) {
-      let state = $state.current.name
+      let state = $state.current.name;
+      const ID = $stateParams.id;
       if (state === 'latest') {
         getArticles.getData().then(() => {
           $scope.article = getArticles.articles.pop();
@@ -15,7 +16,6 @@ angular.module('myApp')
           $state.go('article', { id: $scope.article._id });
         });
       } else {
-        const ID = $stateParams.id;
         function setArticles() {
           getArticles.getData().then(() => {
             $scope.article = getArticles.articles.filter(article => article._id === ID)[0];
@@ -33,10 +33,20 @@ angular.module('myApp')
         if (!CurrentUser.getUser()) {
           return $state.go('login');
         }
-        $http.put(`/articles/comment/${$stateParams.id}`, { comment }).then(() => {
+        $http.put(`/articles/comment/${ID}`, { comment }).then(() => {
           $rootScope.$broadcast('dataUpdated');
-          $state.go('article', {}, { reload: true })
+          $state.go('article', {}, { reload: true });
           $scope.toggleCommentForm();
+        });
+      }
+
+      $scope.deleteArticle = function() {
+        if (!CurrentUser.getUser()) {
+          return $state.go('login');
+        }
+        $http.delete(`/articles/${ID}`).then(() => {
+          $rootScope.$broadcast('dataUpdated');
+          $state.go('home', {}, { reload: true });
         });
       }
     }]
