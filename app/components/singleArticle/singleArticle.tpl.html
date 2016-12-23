@@ -5,7 +5,7 @@ at <a ng-href="{{article.link}}" class="article-link">{{article.link}}</a>
 <p class="custom-btn" ng-click="toggleCommentForm()">Add comment</p>
 <p class="custom-btn delete-btn" ng-click="deleteArticle()">Delete article</p>
 <div class="comment-form" ng-show="isShowCommentForm">
-  <form ng-submit="submitComment(comment)">
+  <form ng-submit="submitComment(comment, article.title)">
     <p>Please, type here your comment!</p>
     <textarea name="title" rows="8" cols="80" ng-model="comment" required></textarea>
     <input type="submit" value="SUBMIT" class="submit-btn">
@@ -15,7 +15,7 @@ at <a ng-href="{{article.link}}" class="article-link">{{article.link}}</a>
   <div class="comment" ng-repeat="comment in article.comments">
     <div>
       <span>Author: </span>
-      <span>{{comment.author}}</span>
+      <a ui-sref="users({ username: comment.author })">{{comment.author}}</a>
     </div>
     <div>
       <span>Comment: </span>

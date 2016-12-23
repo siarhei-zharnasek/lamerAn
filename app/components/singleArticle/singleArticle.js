@@ -29,11 +29,11 @@ angular.module('myApp')
         $scope.isShowCommentForm = !$scope.isShowCommentForm;
       }
 
-      $scope.submitComment = function(comment) {
+      $scope.submitComment = function(comment, title) {
         if (!CurrentUser.getUser()) {
           return $state.go('login');
         }
-        $http.put(`/articles/comment/${ID}`, { comment }).then(() => {
+        $http.put(`/articles/comment/${ID}`, { comment, title }).then(() => {
           $rootScope.$broadcast('dataUpdated');
           $state.go('article', {}, { reload: true });
           $scope.toggleCommentForm();

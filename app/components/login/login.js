@@ -2,26 +2,31 @@ angular.module('myApp')
   .component('login', {
     templateUrl: 'app/components/login/login.tpl.html',
     controller: ['$scope', '$http', '$rootScope', 'CurrentUser', '$state', function($scope, $http, $rootScope, CurrentUser, $state) {
-      $scope.submit = (login, password) => {
+      $scope.submit = (username, password) => {
         if ($state.current.name === 'login') {
-          $http.post('/login', { username: login, password: password })
+          $http.post('/login', { username, password })
                 .then(res => {
                   if (res.data) {
                     CurrentUser.setUser(res.data.username);
                     $rootScope.$broadcast('authenticated', { username: res.data.username });
                   } else {
-                    $state.go('login');
                   }
+                }, () => {
+                  $scope.registerErr = true;
+                  $scope.validationErr = 'Invalid username or password. Please, try again.'
                 });
         } else {
-          $http.post(`/users/${login}`, { username: login, password })
-                .then(() => {
-                  CurrentUser.setUser(login);
-                  $rootScope.$broadcast('authenticated', { username: login });
+          $http.post(`/users/${username}`, { username, password })
+                .then((res) => {
+                  if (res.data) {
+                    CurrentUser.setUser(username);
+                    $rootScope.$broadcast('authenticated', { username });
+                  } else {
+                    $scope.registerErr = true;
+                    $scope.validationErr = 'There is another person with this username. Please, try again.'
+                  }
                 });
         }
-        $scope.login = '';
-        $scope.password = '';
       };
     }]
   })

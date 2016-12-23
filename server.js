@@ -38,11 +38,20 @@ router.route('/users/:username')
     });
   })
   .post((req, res) => {
-    User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
       if (err) {
-        res.send(err);
+        return res.send(err);
       }
-      passport.authenticate('local')(req, res, () => res.redirect('/'));
+      if (!user) {
+        User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
+          if (err) {
+            res.send(err);
+          }
+          passport.authenticate('local')(req, res, () => res.redirect('/'));
+        });
+      } else {
+        res.send();
+      }
     });
   })
   .put((req, res) => {
@@ -123,12 +132,13 @@ router.route('/articles/comment/:_id')
   .put((req, res) => {
     const comment = req.body.comment;
     const username = req.user.username;
+    const title = req.body.title;
 
     User.findOne({ username }, (err, user) => {
       if (err) {
         return res.send(err);
       }
-      user.comments.push({ comment, article: req.params._id, date: new Date() });
+      user.comments.push({ comment, title, article: req.params._id, date: new Date() });
       user.save(err => {
         if (err) {
           return res.send(err);

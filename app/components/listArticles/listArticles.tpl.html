@@ -5,7 +5,7 @@
     </a>
       <a ng-href="{{article.link}}" class="article-link">at {{article.link}}</a>
       <div>
-        <span class="article-author">posted by <span><a ui-sref="users({ username: article.author })">{{article.author}}</a></span></span>
+        <span class="article-author">posted by <a ui-sref="users({ username: article.author })">{{article.author}}</a></span>
         <span>{{article['creation date'] | date : longDate}}</span>
         <span class="article-comments"><strong>{{article.comments.length}}</strong> comments</span>
       </div>

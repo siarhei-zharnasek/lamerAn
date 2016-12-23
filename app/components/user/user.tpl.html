@@ -7,7 +7,7 @@
   <div class="comment" ng-repeat="comment in user.comments">
     <div>
       <span>Article: </span>
-      <span>{{comment.article}}</span>
+      <a ui-sref="article({ id: comment.article })">{{comment.title}}</a>
     </div>
     <div>
       <span>Comment: </span>
