@@ -118,6 +118,10 @@ input[type="submit"]:hover {
   cursor: pointer;
 }
 
+.custom-btn {
+  display: inline-block;
+}
+
 .delete-btn:hover {
   background: rgba(255, 2, 2, 0.55);
 }

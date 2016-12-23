@@ -1,8 +1,10 @@
-<h3>User panel</h3>
-<h4>Username: {{user.username}}</h4>
-<p class="custom-btn" ng-if="!user.password" ng-click="logout()">Logout</p>
-<p class="custom-btn" ng-if="!user.password" ng-click="deleteUser()">Delete account</p>
-<h2>Your comments</h3>
+<h1>User panel</h1>
+<h2>Username: {{user.username}}</h2>
+<div>
+  <p class="custom-btn" ng-if="!user.password" ng-click="logout()">Logout</p>
+  <p class="custom-btn" ng-if="!user.password" ng-click="deleteUser()">Delete account</p>
+</div>
+<h2>Your comments</h2>
 <div class="comments-container">
   <div class="comment" ng-repeat="comment in user.comments">
     <div>
