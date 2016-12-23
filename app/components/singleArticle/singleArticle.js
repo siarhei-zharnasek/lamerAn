@@ -13,7 +13,6 @@ angular.module('myApp')
           let randomNumber = Math.floor(Math.random() * articles.length);
           $scope.article = articles[randomNumber];
           $state.go('article', { id: $scope.article._id });
-          console.log($scope.article);
         });
       } else {
         const ID = $stateParams.id;

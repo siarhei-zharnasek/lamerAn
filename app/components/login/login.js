@@ -25,18 +25,17 @@ angular.module('myApp')
       };
     }]
   })
-  .directive('loginCheck', ['$compile', '$state', function($compile, $state) {
+  .directive('loginCheck', ['$state', function($state) {
     return {
       restrict: 'A',
       link: function($scope, $elem, $attr) {
         $scope.$on('authenticated', (res, data) => {
           if (data) {
-            $elem.replaceWith(`<a ui-sref=users/${data.username} href="/users/${data.username}">${data.username}</a>`);
+            $scope.isLogined = true;
+            $scope.username = data.username;
           } else {
-            // TODO: LOGOUT not working
-            $elem.replaceWith(`<a ui-sref=login href="/login">Login</a>`);
+            $scope.isLogined = false;
           }
-          $compile($elem)($scope);
           $state.go('home');
         });
       }
