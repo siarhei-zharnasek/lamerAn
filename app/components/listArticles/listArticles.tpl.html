@@ -1,13 +1,15 @@
 <ul class="main-list">
-  <li ng-repeat="article in articles">
+  <li ng-repeat="article in articles | orderBy: '-rating'">
+    <a href="#" class="rate-up" ng-click="increaseRating(article._id, article.rating)">▲</a>
     <a class="title" ui-sref="article({ id: article._id })">
       <h3 class="news-title">{{article.title}}</h3>
     </a>
-      <a ng-href="{{article.link}}" class="article-link">at {{article.link}}</a>
-      <div>
-        <span class="article-author">posted by <a ui-sref="users({ username: article.author })">{{article.author}}</a></span>
-        <span>{{article['creation date'] | date : longDate}}</span>
-        <span class="article-comments"><strong>{{article.comments.length}}</strong> comments</span>
-      </div>
+    <a href="#" class="rate-down" ng-click="decreaseRating(article._id, article.rating)">▼</a>
+    <a ng-href="{{article.link}}" class="article-link">at {{article.link}}</a>
+    <div>
+      <span class="article-author">posted by <a ui-sref="users({ username: article.author })">{{article.author}}</a></span>
+      <span>{{article['creation date'] | date : longDate}}</span>
+      <span class="article-comments"><strong>{{article.comments.length}}</strong> comments</span>
+    </div>
   </li>
 </ul>

@@ -92,7 +92,7 @@ router.route('/articles')
   .post((req, res) => {
     var article = new Article();
 
-    Object.assign(article, req.body, { 'creation date': new Date() });
+    Object.assign(article, req.body, { 'creation date': new Date(), rating: 0 });
 
     article.save(err => {
       if (err) {
