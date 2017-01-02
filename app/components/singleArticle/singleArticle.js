@@ -1,7 +1,8 @@
 angular.module('myApp')
   .component('article', {
     templateUrl: 'app/components/singleArticle/singleArticle.tpl.html',
-    controller: ['$scope', '$stateParams', 'getArticles', '$state', '$http', '$rootScope', 'CurrentUser', function($scope, $stateParams, getArticles, $state, $http, $rootScope, CurrentUser) {
+    controller: ['$scope', '$stateParams', 'getArticles', '$state', '$http', '$rootScope', 'CurrentUser', '$window', function($scope, $stateParams, getArticles, $state, $http, $rootScope, CurrentUser, $window) {
+      $window.scrollTo(0, 0);
       let state = $state.current.name;
       const ID = $stateParams.id;
       if (state === 'latest') {

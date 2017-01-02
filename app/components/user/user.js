@@ -1,11 +1,16 @@
 angular.module('myApp')
   .component('user', {
     templateUrl: 'app/components/user/user.tpl.html',
-    controller: ['$scope', '$http', '$stateParams', 'CurrentUser', '$rootScope', '$state', function($scope, $http, $stateParams, CurrentUser, $rootScope, $state) {
+    controller: ['$scope', '$http', '$stateParams', 'CurrentUser', '$rootScope', '$state', '$window', function($scope, $http, $stateParams, CurrentUser, $rootScope, $state, $window) {
+      $window.scrollTo(0, 0);
       $http.get(`/users/${$stateParams.username}`).then(user => {
-        $scope.user = user.data;
-        if (CurrentUser.getUser() !== $scope.user.username) {
-          $scope.user.password = '***';
+        if (!user.data) {
+          $scope.userErr = 'There is no such user!';
+        } else {
+          $scope.user = user.data;
+          if (CurrentUser.getUser() !== $scope.user.username) {
+            $scope.user.password = '***';
+          }
         }
       });
 
