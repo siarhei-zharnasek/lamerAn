@@ -153,17 +153,20 @@ input[type="submit"]:hover {
   outline: none;
 }
 
-.rate-up,
-.rate-down {
+.rate {
   width: 17px;
   height: 17px;
-  color: #af1d1d;
+  color: rgba(132, 130, 134, 0.43);
   display: inline-block;
   text-decoration: none;
 }
 
 .rate-up {
   color: #1daf2b;
+}
+
+.rate-down {
+  color: #af1d1d;
 }
 
 .article-rating {
@@ -179,4 +182,8 @@ input[type="submit"]:hover {
   font-family: serif;
   font-weight: 600;
   color: black;
+}
+
+.article-upped {
+  border: 
 }

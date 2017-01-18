@@ -18,7 +18,6 @@ angular.module('myApp')
         });
       } else if (state === 'top') {
         getArticles.getData().then(() => {
-          console.log(getArticles.articles);
           $scope.article = getArticles.articles.sort((obj1, obj2) => obj2.rating - obj1.rating)[0];
         });
       } else {

@@ -47,7 +47,7 @@ router.route('/users/:username')
           if (err) {
             res.send(err);
           }
-          passport.authenticate('local')(req, res, () => res.redirect('/'));
+          passport.authenticate('local')(req, res, () => res.json({ user }));
         });
       } else {
         res.send();
@@ -60,7 +60,14 @@ router.route('/users/:username')
         return res.send(err);
       }
 
-      user.comments.push(req.body);
+      const newLike = req.body.like;
+      const newDislike = req.body.dislike;
+
+      if (newLike) {
+        user.likes.push(newLike);
+      } else if (newDislike) {
+        user.dislikes.push(newDislike);
+      }
 
       user.save(err => {
         if (err) {
@@ -80,7 +87,7 @@ router.route('/users/:username')
   });
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.json({ username: req.user.username });
+  res.json({ user: req.user });
 });
 
 router.get('/logout', (req, res) => {

@@ -7,9 +7,9 @@ angular.module('myApp')
           $http.post('/login', { username, password })
                 .then(res => {
                   if (res.data) {
-                    CurrentUser.setUser(res.data.username);
-                    $rootScope.$broadcast('authenticated', { username: res.data.username });
-                  } else {
+                    CurrentUser.setUser(res.data.user);
+                    $rootScope.$broadcast('authenticated', { username });
+                    $rootScope.$broadcast('dataUpdated');
                   }
                 }, () => {
                   $scope.registerErr = true;
@@ -19,7 +19,7 @@ angular.module('myApp')
           $http.post(`/users/${username}`, { username, password })
                 .then((res) => {
                   if (res.data) {
-                    CurrentUser.setUser(username);
+                    CurrentUser.setUser(res.data.user);
                     $rootScope.$broadcast('authenticated', { username });
                   } else {
                     $scope.registerErr = true;
