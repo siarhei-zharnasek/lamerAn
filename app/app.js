@@ -21,6 +21,10 @@ angular.module('myApp', ['ui.router', 'ngCookies'])
         url: '/latest',
         template: '<article></article>'
       })
+      .state('top', {
+        url: '/top',
+        template: '<article></article>'
+      })
       .state('random', {
         url: '/random',
         template: '<article></article>'

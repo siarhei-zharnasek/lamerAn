@@ -162,6 +162,10 @@ input[type="submit"]:hover {
   text-decoration: none;
 }
 
+.rate-up {
+  color: #1daf2b;
+}
+
 .article-rating {
   display: block;
   width: 18px;
@@ -174,4 +178,5 @@ input[type="submit"]:hover {
   line-height: 18px;
   font-family: serif;
   font-weight: 600;
+  color: black;
 }

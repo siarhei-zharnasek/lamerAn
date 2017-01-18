@@ -1,7 +1,7 @@
 angular.module('myApp')
     .component('listArticles', {
         templateUrl: 'app/components/listArticles/listArticles.tpl.html',
-        controller: ['$scope', 'getArticles', '$http', function($scope, getArticles, $http) {
+        controller: ['$scope', 'getArticles', '$http', 'CurrentUser', '$rootScope', function($scope, getArticles, $http, CurrentUser, $rootScope) {
             function setArticles() {
                 getArticles.getData().then(() => $scope.articles = getArticles.articles);
             }
@@ -9,14 +9,18 @@ angular.module('myApp')
             $scope.$on('dataUpdated', setArticles);
 
             $scope.increaseRating = function(id, rating) {
-                rating++;
-                $http.put(`/articles/${id}`, { rating }).then(() => setArticles());
+                if (CurrentUser.getUser()) {
+                    rating++;
+                    $http.put(`/articles/${id}`, { rating }).then(() => setArticles());
+                    $rootScope.$broadcast('dataUpdated');
+                }
             };
 
             $scope.decreaseRating = function(id, rating) {
-                if (rating !== 0) {
+                if (CurrentUser.getUser() && rating !== 0) {
                     rating--;
                     $http.put(`/articles/${id}`, { rating }).then(() => setArticles());
+                    $rootScope.$broadcast('dataUpdated');
                 }
             };
         }]

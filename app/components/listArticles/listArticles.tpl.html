@@ -1,5 +1,6 @@
 <ul class="main-list">
   <li ng-repeat="article in articles | orderBy: '-rating'">
+    <span class="article-rating">{{article.rating}}</span>
     <a href="#" class="rate-up" ng-click="increaseRating(article._id, article.rating)">▲</a>
     <a class="title" ui-sref="article({ id: article._id })">
       <h3 class="news-title">{{article.title}}</h3>
