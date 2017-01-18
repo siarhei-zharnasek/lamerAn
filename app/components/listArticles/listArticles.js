@@ -28,6 +28,17 @@ angular.module('myApp')
                     userSession.likes.push(id);
                     CurrentUser.setUser(userSession);
                     $rootScope.$broadcast('dataUpdated');
+                    $rootScope.$broadcast('updateUserData');
+                } else if (userSession.dislikes.includes(id)) {
+                    rating++;
+                    $http.put(`/users/${userSession.username}?deleteDislike=true`, { like: id })
+                        .then($http.put(`/articles/${id}`, { rating }))
+                        .then(() => setArticles());
+
+                    userSession.dislikes.splice(userSession.dislikes.indexOf(id), 1);
+                    CurrentUser.setUser(userSession);
+                    $rootScope.$broadcast('dataUpdated');
+                    $rootScope.$broadcast('updateUserData');
                 }
             };
 
@@ -42,6 +53,17 @@ angular.module('myApp')
                     userSession.dislikes.push(id);
                     CurrentUser.setUser(userSession);
                     $rootScope.$broadcast('dataUpdated');
+                    $rootScope.$broadcast('updateUserData');
+                } else if (userSession.likes.includes(id)) {
+                    rating--;
+                    $http.put(`/users/${userSession.username}?deleteLike=true`, { dislike: id })
+                        .then($http.put(`/articles/${id}`, { rating }))
+                        .then(() => setArticles());
+
+                    userSession.likes.splice(userSession.likes.indexOf(id), 1);
+                    CurrentUser.setUser(userSession);
+                    $rootScope.$broadcast('dataUpdated');
+                    $rootScope.$broadcast('updateUserData');
                 }
             };
         }]

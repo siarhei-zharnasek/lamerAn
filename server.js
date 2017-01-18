@@ -62,11 +62,21 @@ router.route('/users/:username')
 
       const newLike = req.body.like;
       const newDislike = req.body.dislike;
+      const isDeleteLike = req.query.deleteLike;
+      const isDeleteDislike = req.query.deleteDislike;
 
       if (newLike) {
-        user.likes.push(newLike);
+        if (isDeleteDislike) {
+          user.dislikes.splice(user.dislikes.indexOf(newLike), 1);
+        } else {
+          user.likes.push(newLike);
+        }
       } else if (newDislike) {
-        user.dislikes.push(newDislike);
+        if (isDeleteLike) {
+          user.likes.splice(user.likes.indexOf(newDislike), 1);
+        } else {
+          user.dislikes.push(newDislike);
+        }
       }
 
       user.save(err => {

@@ -6,7 +6,7 @@ angular.module('myApp')
         $state.go('login');
       }
       $scope.submit = function() {
-        $http.post('/articles', { title: $scope.title, link: $scope.link, author: CurrentUser.getUser() })
+        $http.post('/articles', { title: $scope.title, link: $scope.link, author: CurrentUser.getUser().username })
               .then(() => {
                 $rootScope.$broadcast('dataUpdated');
                 $state.go('home', {}, { reload: true });
