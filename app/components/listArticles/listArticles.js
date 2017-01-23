@@ -29,7 +29,7 @@ angular.module('myApp')
                     CurrentUser.setUser(userSession);
                     $rootScope.$broadcast('dataUpdated');
                     $rootScope.$broadcast('updateUserData');
-                } else if (userSession.dislikes.includes(id)) {
+                } else if (userSession && userSession.dislikes.includes(id)) {
                     rating++;
                     $http.put(`/users/${userSession.username}?deleteDislike=true`, { like: id })
                         .then($http.put(`/articles/${id}`, { rating }))
@@ -44,7 +44,7 @@ angular.module('myApp')
 
             $scope.decreaseRating = function(id, rating) {
                 let userSession = CurrentUser.getUser();
-                if (userSession && rating !== 0 && !userSession.likes.includes(id) && !userSession.dislikes.includes(id)) {
+                if (userSession && !userSession.likes.includes(id) && !userSession.dislikes.includes(id)) {
                     rating--;
                     $http.put(`/users/${userSession.username}`, { dislike: id })
                         .then($http.put(`/articles/${id}`, { rating }))
@@ -54,7 +54,7 @@ angular.module('myApp')
                     CurrentUser.setUser(userSession);
                     $rootScope.$broadcast('dataUpdated');
                     $rootScope.$broadcast('updateUserData');
-                } else if (userSession.likes.includes(id)) {
+                } else if (userSession && userSession.likes.includes(id)) {
                     rating--;
                     $http.put(`/users/${userSession.username}?deleteLike=true`, { dislike: id })
                         .then($http.put(`/articles/${id}`, { rating }))

@@ -109,6 +109,7 @@ input[type="submit"] {
   border-radius: 20px;
   background: rgba(243, 241, 247, 0.55);
   transition: box-shadow 0.2s linear, background 0.2s linear;
+  outline: none;
 }
 
 .custom-btn:hover,
@@ -159,6 +160,10 @@ input[type="submit"]:hover {
   color: rgba(132, 130, 134, 0.43);
   display: inline-block;
   text-decoration: none;
+}
+
+.rate:hover {
+  cursor: pointer;
 }
 
 .rate-up {

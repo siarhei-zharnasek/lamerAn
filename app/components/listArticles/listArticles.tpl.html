@@ -1,12 +1,12 @@
 <ul class="main-list">
   <li ng-repeat="article in articles | orderBy: '-rating'">
     <span class="article-rating">{{article.rating}}</span>
-    <a href="#" class="rate" ng-click="increaseRating(article._id, article.rating)" ng-class="{'rate-up': userLikes.includes(article._id)}">▲</a>
+    <span class="rate" ng-click="increaseRating(article._id, article.rating)" ng-class="{'rate-up': userLikes.includes(article._id)}">▲</span>
     <a class="title" ui-sref="article({ id: article._id })">
       <h3 class="news-title">{{article.title}}</h3>
     </a>
-    <a href="#" class="rate" ng-click="decreaseRating(article._id, article.rating)" ng-class="{'rate-down': userDislikes.includes(article._id)}">▼</a>
-    <a ng-href="{{article.link}}" class="article-link">at {{article.link}}</a>
+    <span class="rate" ng-click="decreaseRating(article._id, article.rating)" ng-class="{'rate-down': userDislikes.includes(article._id)}">▼</span>
+    <a ng-href="http://{{article.link}}" class="article-link">at {{article.link}}</a>
     <div>
       <span class="article-author">posted by <a ui-sref="users({ username: article.author })">{{article.author}}</a></span>
       <span>{{article['creation date'] | date : longDate}}</span>

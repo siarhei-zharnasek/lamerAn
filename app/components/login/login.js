@@ -2,6 +2,8 @@ angular.module('myApp')
   .component('login', {
     templateUrl: 'app/components/login/login.tpl.html',
     controller: ['$scope', '$http', '$rootScope', 'CurrentUser', '$state', function($scope, $http, $rootScope, CurrentUser, $state) {
+      $scope.currentState = $state.current.name;
+
       $scope.submit = (username, password) => {
         if ($state.current.name === 'login') {
           $http.post('/login', { username, password })

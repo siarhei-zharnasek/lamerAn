@@ -23,7 +23,8 @@
   "scripts": {
     "dev-server": "webpack-dev-server --progress --colors --hot --inline --history-api-fallback",
     "build": "webpack",
-    "build-production": "NODE_ENV=production && webpack -p"
+    "build-production": "NODE_ENV=production && webpack -p",
+    "start": "nodemon server"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
